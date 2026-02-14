@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eiloudie's Little Bakery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Poppins',sans-serif;background:#f6efe7;color:#4b2e2b;overflow-x:hidden;position:relative;}
+@keyframes glitter{0%{opacity:0;transform:scale(0.5);}50%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(0.5);}}
+.glitter{position:absolute;width:5px;height:5px;background:gold;border-radius:50%;animation:glitter 2s infinite;opacity:0;}
+.hero{min-height:50vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(to bottom,#fff8f1,#f6efe7);text-align:center;padding:60px 20px;}
+.hero h1{font-family:'Playfair Display',serif;font-size:32px;margin-bottom:15px;}
+.hero p{opacity:0.85;margin-bottom:25px;font-size:16px;max-width:400px;}
+.cookie-btn{background:#c58b6d;color:white;border:none;padding:12px 24px;border-radius:50px;font-size:16px;cursor:pointer;transition:0.3s ease;box-shadow:0 8px 20px rgba(0,0,0,0.15);}
+.cookie-btn:hover{transform:scale(1.08);box-shadow:0 0 30px rgba(197,139,109,0.9);}
+.slider-container{position:relative;width:100%;overflow:hidden;margin:50px 0;}
+.slider-track{display:flex;transition:transform 0.5s ease;}
+.slide{min-width:100%;flex-shrink:0;padding:40px 20px;display:flex;justify-content:center;align-items:center;}
+.slide .card{background:#fff8f1;border-radius:20px;padding:30px;box-shadow:0 8px 25px rgba(0,0,0,0.1);max-width:320px;text-align:center;transition:0.4s;position:relative;}
+.slide .card:hover{transform:scale(1.05);box-shadow:0 0 35px rgba(197,139,109,0.7);}
+.slide .card::before,.slide .card::after{content:'⭐';position:absolute;font-size:18px;}
+.slide .card::before{top:10px;left:10px;}
+.slide .card::after{bottom:10px;right:10px;}
+.slide h3{font-family:'Playfair Display',serif;margin-bottom:12px;}
+.slide p{line-height:1.5;opacity:0.85;}
+.slider-buttons{position:absolute;top:50%;width:100%;display:flex;justify-content:space-between;transform:translateY(-50%);pointer-events:none;}
+.slider-buttons button{background: rgba(197,139,109,0.8); border:none; color:white; font-size:20px; padding:10px 15px; border-radius:50%; cursor:pointer; pointer-events:all; transition:0.3s;}
+.slider-buttons button:hover{background: rgba(197,139,109,1);}
+.menu-section{padding:50px 20px;text-align:center;}
+.menu-item{display:inline-block;background:#fff8f1;padding:15px 20px;margin:10px;border-radius:15px;cursor:pointer;transition:0.3s;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+.menu-item:hover{background:#f3e4d9;box-shadow:0 0 15px rgba(197,139,109,0.5);transform:scale(1.05);}
+.menu-item span{display:block;font-size:24px;margin-top:5px;opacity:0;transition:0.4s;}
+.message-section{padding:50px 20px;text-align:center;}
+.message-form input{padding:10px 15px;width:70%;border-radius:10px;border:1px solid #c58b6d;margin-right:10px;}
+.message-form button{padding:10px 15px;border:none;border-radius:10px;background:#c58b6d;color:white;cursor:pointer;transition:0.3s;}
+.message-form button:hover{background:#b97758;}
+.note{background:#fffbe6;padding:20px;border-radius:15px;margin:15px auto;max-width:320px;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:relative;text-align:left;}
+.note p{margin-bottom:10px;}
+.note button{position:absolute;top:10px;right:10px;background:#c58b6d;color:white;border:none;border-radius:50%;width:24px;height:24px;font-weight:bold;cursor:pointer;display:block;}
+.reply-btn{background:#c58b6d;color:white;border:none;border-radius:8px;padding:5px 10px;cursor:pointer;margin-top:5px;font-size:12px;}
+.reply-form{margin-top:10px;display:none;}
+.reply-form input{width:70%;padding:5px 10px;border-radius:8px;border:1px solid #c58b6d;margin-right:5px;font-size:12px;}
+.reply-form button{padding:5px 10px;font-size:12px;border:none;border-radius:8px;background:#c58b6d;color:white;cursor:pointer;}
+.reply-container{margin-top:10px;padding-left:10px;border-left:2px solid #c58b6d;}
+.reply-container p{position:relative;margin-bottom:5px;}
+.reply-container p button{position:absolute;top:0;right:-25px;background:#c58b6d;color:white;border:none;border-radius:50%;width:20px;height:20px;font-size:12px;display:block;cursor:pointer;}
+footer{background:#e6c7b2;padding:20px;font-size:14px;text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- Glitter -->
+<div class="glitter" style="top:15%; left:20%; animation-delay:0s"></div>
+<div class="glitter" style="top:35%; left:60%; animation-delay:1s"></div>
+<div class="glitter" style="top:55%; left:40%; animation-delay:1.5s"></div>
+<div class="glitter" style="top:70%; left:75%; animation-delay:2s"></div>
+
+<section class="hero">
+<h1>welcome to eiloudie's little bakery</h1>
+<p>hi! i'm eiloudie, your friendly bakery owner ❤️. a cozy corner for sweet crumbs, soft smiles, and tiny happy moments ⭐</p>
+<button class="cookie-btn" onclick="scrollToSection()">enter the bakery 🍰</button>
+</section>
+
+<section id="about">
+<div class="slider-container">
+  <div class="slider-track" id="sliderTrack">
+    <div class="slide"><div class="card"><h3>Introduction</h3><p>hello! i'm eiloudie, your friendly bakery owner ❤️. welcome to my cozy corner for sweet crumbs, soft smiles, and tiny happy moments ⭐</p></div></div>
+    <div class="slide"><div class="card"><h3>Our Space</h3><p>a warm, cozy digital bakery corner for soft crumbs and sweet moments.</p></div></div>
+    <div class="slide"><div class="card"><h3>Secret Recipe</h3><p>1 cup sweetness, 2 spoons of chaos, a pinch of clingy energy, mixed with sincerity.</p></div></div>
+  </div>
+  <div class="slider-buttons">
+    <button id="prevBtn">&#10094;</button>
+    <button id="nextBtn">&#10095;</button>
+  </div>
+</div>
+</section>
+
+<section class="menu-section">
+<h2>Menu 🍪</h2>
+<div class="menu-item" onclick="showEmoji(this,'🍪')">Cookies</div>
+<div class="menu-item" onclick="showEmoji(this,'🧁')">Cupcake</div>
+<div class="menu-item" onclick="showEmoji(this,'🎂')">Birthday Cake</div>
+<div class="menu-item" onclick="showEmoji(this,'🍰')">Cheesecake</div>
+<div class="menu-item" onclick="showEmoji(this,'🥧')">Pie Cake</div>
+<div class="menu-item" onclick="showEmoji(this,'🍫')">Brownies</div>
+</section>
+
+<section class="message-section">
+<h2>Leave a Note ✨</h2>
+<div class="message-form">
+<input type="text" id="messageInput" placeholder="Type your note here">
+<button onclick="addMessage()">Add</button>
+</div>
+<div id="messagesContainer"></div>
+</section>
+
+<footer>made with love by eiloudie ✨</footer>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyDCzaNX-pSnExio9hILVb5kBNRXECh2q_k",
+  authDomain: "bakery-8e284.firebaseapp.com",
+  databaseURL: "https://bakery-8e284-default-rtdb.firebaseio.com",
+  projectId: "bakery-8e284",
+  storageBucket: "bakery-8e284.firebasestorage.app",
+  messagingSenderId: "428929882359",
+  appId: "1:428929882359:android:a10bf5ac01934947f29bf2"
+};
+firebase.initializeApp(firebaseConfig);
+
+function scrollToSection(){document.getElementById("about").scrollIntoView({behavior:"smooth"});}
+
+// Slider
+const sliderTrack=document.getElementById('sliderTrack');
+const slides=document.querySelectorAll('.slide');
+let currentIndex=0;
+function updateSlider(){sliderTrack.style.transform=`translateX(-${currentIndex*100}%)`;}
+document.getElementById('prevBtn').addEventListener('click',()=>{currentIndex=(currentIndex-1+slides.length)%slides.length;updateSlider();});
+document.getElementById('nextBtn').addEventListener('click',()=>{currentIndex=(currentIndex+1)%slides.length;updateSlider();});
+let startX=0;
+sliderTrack.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
+sliderTrack.addEventListener('touchend',e=>{let endX=e.changedTouches[0].clientX;if(startX-endX>50){currentIndex=(currentIndex+1)%slides.length;updateSlider();}if(endX-startX>50){currentIndex=(currentIndex-1+slides.length)%slides.length;updateSlider();}});
+
+const ownerName='eiloudie';
+
+// --- MESSAGES ---
+function addMessage(){
+  const input=document.getElementById('messageInput'); 
+  const text=input.value.trim(); 
+  if(!text)return;
+  const newMsg={text:text,timestamp:Date.now()};
+  firebase.database().ref('messages').push(newMsg);
+  input.value='';
+}
+
+firebase.database().ref('messages').on('value',snapshot=>{
+  const container=document.getElementById('messagesContainer'); container.innerHTML='';
+  snapshot.forEach(child=>{
+    const msg=child.val(); const msgId=child.key;
+    const note=document.createElement('div'); note.className='note';
+    note.innerHTML=`<p>${msg.text}</p>
+      <button onclick='deleteMessage("${msgId}")'>×</button>
+      <button class='reply-btn' onclick='toggleReply(this)'>Reply</button>
+      <div class='reply-form'><input type='text' placeholder='Type reply'><button onclick='addReply(this,"${msgId}")'>Send</button></div>
+      <div class='reply-container' id='reply-${msgId}'></div>`;
+    container.appendChild(note);
+    if(msg.replies){
+      const replyContainer=document.getElementById('reply-'+msgId);
+      Object.entries(msg.replies).forEach(([rid,rdata])=>{
+        const rp=document.createElement('p'); rp.textContent=`${ownerName}: ${rdata.text}`;
+        const delBtn=document.createElement('button'); delBtn.textContent='×'; delBtn.onclick=function(){deleteReply(msgId,rid);};
+        rp.appendChild(delBtn);
+        replyContainer.appendChild(rp);
+      });
+    }
+  });
+});
+
+function deleteMessage(id){firebase.database().ref('messages/'+id).remove();}
+function toggleReply(btn){const form=btn.nextElementSibling;form.style.display=form.style.display==='block'?'none':'block';}
+function addReply(btn,msgId){
+  const input=btn.previousElementSibling; const text=input.value.trim(); if(!text)return;
+  const newReply={text:text};
+  firebase.database().ref('messages/'+msgId+'/replies').push(newReply);
+  input.value='';
+}
+function deleteReply(msgId,rid){firebase.database().ref('messages/'+msgId+'/replies/'+rid).remove();}
+
+// --- MENU EMOJI ---
+function showEmoji(el,emoji){
+  let span=el.querySelector('span');
+  if(!span){span=document.createElement('span'); el.appendChild(span);}
+  span.textContent=emoji; span.style.opacity='1';
+}
+</script>
+
+</body>
+</html>
